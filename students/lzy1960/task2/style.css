@@ -1,0 +1,352 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: transparent; /* Make body background transparent */
+    color: #e0e0e0; /* Lighter text for better contrast on image */
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://picsum.photos/id/84/1920/1080') no-repeat center center fixed; /* Move background to pseudo-element */
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text readability */
+    z-index: -1;
+    /* Initial state for background blur and shrink animation */
+    transform: scale(1.1); /* Slightly scaled up initially */
+    filter: blur(20px); /* Initial heavy blur */
+    animation: backgroundShrinkAndBlurIn 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Animation for blur to clear and shrink */
+}
+
+@keyframes backgroundShrinkAndBlurIn {
+    from {
+        transform: scale(1.1);
+        filter: blur(20px);
+    }
+    to {
+        transform: scale(1);
+        filter: blur(0px);
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Glassmorphism Base */
+.glass-effect {
+    position: relative; /* Needed for pseudo-element positioning */
+    overflow: hidden; /* Ensure pseudo-element is clipped */
+    background-color: transparent; /* Main element background is transparent */
+    border-radius: 15px;
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    /* Initial state for scroll-in animation */
+    opacity: 0;
+    transform: translateY(40px); /* Keep initial transform for scroll-in */
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255， 0); /* Reduced transparency for internal block */
+    backdrop-filter: blur(8px); /* Increased internal blur */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Increased transparency for inner border */
+    border-radius: 15px; /* Match parent border-radius */
+    z-index: -1; /* Place between the outer border and content */
+}
+
+.glass-effect.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header */
+.header {
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #87CEEB; /* Sky blue for contrast */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Hero Section */
+.hero {
+    padding: 100px 0;
+    text-align: center;
+    color: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-size: 52px;
+    /* Gradient Text Effect */
+    background: linear-gradient(45deg, #87CEEB, #ADD8E6, #B0E0E6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    animation: fadeInDown 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero p {
+    font-size: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #c0c0c0;
+    animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+}
+
+/* Skills Section */
+.skills {
+    padding: 80px 0;
+}
+
+.skills h2 {
+    text-align: center;
+    font-size: 40px;
+    color: #87CEEB;
+    margin-bottom: 50px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-category {
+    margin-bottom: 40px;
+    padding: 30px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-category:hover {
+    transform: translateY(-8px) scale(1.02); /* More pronounced hover effect */
+    box-shadow: 0 12px 45px rgba(135, 206, 235, 0.4); /* Stronger shadow on hover */
+}
+
+.skill-category h3 {
+    font-size: 28px;
+    color: #87CEEB;
+    border-bottom: 2px solid rgba(135, 206, 235, 0.3);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-shadow: 0.5px 0.5px 1.5px rgba(0,0,0,0.2);
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.skill-category li {
+    background-color: rgba(255, 255, 255, 0.05); /* More transparent */
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 17px;
+    color: #c0c0c0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-category li:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+/* Contact Section */
+.contact {
+    padding: 80px 0;
+    text-align: center;
+    color: #e0e0e0;
+}
+
+.contact h2 {
+    font-size: 40px;
+    color: #87CEEB;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact p {
+    font-size: 20px;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    color: #c0c0c0;
+    animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+}
+
+.contact-links a {
+    display: inline-block;
+    /* Remove background-color from here, it will be on ::after */
+    color: #333;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    margin: 0 15px;
+    font-size: 19px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
+    position: relative; /* Needed for pseudo-element positioning */
+    overflow: hidden; /* Clip the flowing light effect */
+    z-index: 1; /* Ensure button content is above pseudo-element */
+}
+
+.contact-links a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(135, 206, 235, 0.5);
+}
+
+/* Flowing light effect for buttons - border only */
+.contact-links a::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent 0deg, transparent 200deg, rgba(255, 255, 255, 0.8) 220deg, transparent 240deg, transparent 360deg);
+    animation: rotateLight 3s linear infinite;
+    z-index: -1; /* Position behind the button content */
+    border-radius: 8px; /* Match button border-radius */
+}
+
+.contact-links a::after {
+    content: '';
+    position: absolute;
+    inset: 2px; /* Creates a 2px border effect */
+    background-color: #87CEEB; /* Button's inner background color */
+    border-radius: 6px; /* Slightly smaller radius for inner element */
+    z-index: 0; /* Between ::before and button content */
+}
+
+.contact-links a span { /* Wrap button text in a span to ensure it's above ::after */
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes rotateLight {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Footer */
+.footer {
+    padding: 25px 0;
+    text-align: center;
+    color: #c0c0c0;
+    border-top: 1px solid rgba(135, 206, 235, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.footer p {
+    font-size: 15px;
+    color: #a0a0a0;
+}
+
+/* Timeline Navigation */
+.timeline-nav {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.timeline-item {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4); /* Inactive state */
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.timeline-item:hover {
+    background-color: #87CEEB; /* Sky blue on hover */
+    transform: scale(1.2);
+}
+
+.timeline-item.active {
+    background-color: #87CEEB; /* Active state */
+    border-color: #87CEEB;
+    transform: scale(1.2);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Scroll-based animations */
+/* The .glass-effect class now defines the initial state and its transition */
+/* The .glass-effect.appear class defines the final state */
